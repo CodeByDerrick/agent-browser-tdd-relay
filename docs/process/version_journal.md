@@ -8,7 +8,28 @@ Purpose: This document records checkpoint and milestone boundary history for Age
 ## Baseline
 
 - Initial baseline established for Agent Bridge documentation and workflow identity.
-- No completed checkpoint or milestone boundary has been recorded yet.
+
+## Entries
+
+### Boundary
+
+- type: `checkpoint`
+- identifier: `ckpt-20260402-1`
+- related slices: `01_sqlite_persistence_implementation`
+- related seam or phase: `persistence`, `checkpoint ritual`
+
+### Summary
+
+- what changed: implemented SQLite-backed relay state persistence and append-only audit logging, updated orchestrator persistence wiring, added checkpoint brief archival behavior, and refreshed checkpoint/process docs.
+- docs refreshed: `README.md`, `docs/process/ritual_contracts.md`, `automation/checklists/checkpoint-ritual-checklist.md`, `docs/process/roadmap.md`, `docs/process/backlog.md`, `docs/process/developer_journal.md`, `docs/architecture/module_responsibility_map.md`
+- open risks: the runtime still needs a follow-up slice to decide how SQLite paths and checkpoint artifact locations should be configured outside tests.
+- next recommended brief: define the next minimal runtime slice after the new persistence baseline, likely around runtime configuration or richer checkpoint packet output.
+
+### Git Versioning
+
+- recommended tag: `checkpoint/ckpt-20260402-1`
+- recommended label: `checkpoint: sqlite-persistence-baseline`
+- commit reference: pending
 
 ## Entry Template
 

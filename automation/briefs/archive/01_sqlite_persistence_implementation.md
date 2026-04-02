@@ -1,6 +1,6 @@
 # 01_sqlite_persistence_implementation
 
-**Relative path:** `automation/briefs/active/01_sqlite_persistence_implementation.md`
+**Relative path:** `automation/briefs/archive/01_sqlite_persistence_implementation.md`
 **Project:** Agent Bridge
 
 ## Purpose

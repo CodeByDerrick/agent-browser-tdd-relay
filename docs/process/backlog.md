@@ -18,7 +18,8 @@ Purpose: This document is the full future-facing inventory for Agent Bridge. It 
 - Expand checkpoint and milestone outputs into richer packets.
 - Improve recovery, reconciliation, and operational trust.
 - Strengthen live adapter readiness without over-claiming production maturity.
-- Add SQLite-backed audit storage that records project name, source actor, target actor, timestamp, payload, data category such as `task-brief`, and any additional fields required for later auditability.
+- Add runtime configuration for the SQLite database path and checkpoint artifact locations.
+- Extend audit coverage with any additional metadata needed for future traceability beyond the current actor, timestamp, payload, and category fields.
 
 ## Discussion Needed Before Roadmap
 
