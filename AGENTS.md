@@ -1,8 +1,9 @@
-# AGENTS
+# Agent Guide
 
 Relative path: `AGENTS.md`
+Project: Agent Bridge
 
-Purpose: This document is the top-level operating guide for agents and contributors working in `agent-browser-tdd-relay`. It explains the default delivery mode, the relay workflow, the role of rituals, and the core references that anchor work in this repo. Use it as the first stop when deciding how work should be approached and which docs define the current operating model.
+Purpose: This document is the top-level operating guide for agents and contributors working in Agent Bridge. It explains the default delivery mode, the relay workflow, the role of rituals, and the core references that anchor work in this repo. Use it as the first stop when deciding how work should be approached and which docs define the current operating model.
 
 ## Default delivery mode
 
@@ -15,7 +16,7 @@ Purpose: This document is the top-level operating guide for agents and contribut
 ## Relay Workflow
 
 - `slice ritual`: execute one brief-sized vertical slice
-- `checkpoint ritual`: run after every 3 approved slices
+- `checkpoint ritual`: run whenever maintenance or reconciliation is needed
 - `milestone ritual`: run at seam boundaries or phase completion
 - `reanchor ritual`: run when context needs to be compressed for continuity or handoff
 
@@ -23,17 +24,18 @@ Purpose: This document is the top-level operating guide for agents and contribut
 
 - Rituals are human-invoked wrappers in this repo
 - Checklists, prompts, and skills are intended to work together
-- The codebase already enforces checkpoint workflow timing in domain logic; docs and rituals are the system-of-record for how humans operate that workflow
+- The codebase tracks checkpoint cadence in domain logic, while docs and rituals are the system-of-record for how humans operate that workflow
 - Planning, history, and wiring docs should be maintained through the relevant rituals rather than by ad hoc drift
 
 ## Core references
 
 - [README.md](/e:/build/agent-browser-tdd-relay/README.md)
-- [directory_structure.md](/e:/build/agent-browser-tdd-relay/directory_structure.md)
-- [master_architecture_map.md](/e:/build/agent-browser-tdd-relay/docs/architecture/master_architecture_map.md)
-- [development_playbook.md](/e:/build/agent-browser-tdd-relay/docs/process/development_playbook.md)
-- [relay_workflow_operating_model.md](/e:/build/agent-browser-tdd-relay/docs/process/relay_workflow_operating_model.md)
-- [docs_system_wiring_guide.md](/e:/build/agent-browser-tdd-relay/docs/process/docs_system_wiring_guide.md)
+- [Documentation Guide](/e:/build/agent-browser-tdd-relay/docs/README.md)
+- [Project Profile](/e:/build/agent-browser-tdd-relay/docs/project/project_profile.md)
+- [Architecture Overview](/e:/build/agent-browser-tdd-relay/docs/architecture/README.md)
+- [Development Playbook](/e:/build/agent-browser-tdd-relay/docs/process/development_playbook.md)
+- [Workflow Operating Model](/e:/build/agent-browser-tdd-relay/docs/process/workflow_operating_model.md)
+- [Documentation Wiring Guide](/e:/build/agent-browser-tdd-relay/docs/process/docs_system_wiring_guide.md)
 
 ## Artifact posture
 

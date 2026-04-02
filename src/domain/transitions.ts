@@ -1,6 +1,6 @@
 import { RelayState, ApprovalInput } from './types';
 
-export const APPROVED_SLICES_PER_CHECKPOINT = 3;
+export const CHECKPOINT_CADENCE_TARGET = 3;
 
 export const createInitialState = (runId: string, threadId: string, now: string): RelayState => ({
   runId,
@@ -66,23 +66,6 @@ export const applyApprovalDecision = (state: RelayState, input: ApprovalInput, n
   }
 
   const nextSliceCount = state.loopMode === 'slice' ? state.sliceCount + 1 : state.sliceCount;
-  const shouldRunCheckpoint = state.loopMode === 'slice' && nextSliceCount >= APPROVED_SLICES_PER_CHECKPOINT;
-
-  if (shouldRunCheckpoint) {
-    return withUpdatedAt(
-      {
-        ...state,
-        approvalStatus: 'approved',
-        sliceCount: nextSliceCount,
-        phase: 'running_checkpoint',
-        loopMode: 'checkpoint',
-        currentBriefPath: state.pendingBriefPath,
-        pendingBriefPath: null
-      },
-      now
-    );
-  }
-
   if (state.loopMode === 'checkpoint') {
     return withUpdatedAt(
       {

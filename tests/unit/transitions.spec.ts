@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  APPROVED_SLICES_PER_CHECKPOINT,
+  CHECKPOINT_CADENCE_TARGET,
   applyApprovalDecision,
   createInitialState,
   markWaitingForApproval,
@@ -18,13 +18,14 @@ describe('transitions', () => {
     expect(approved.phase).toBe('waiting_for_codex');
   });
 
-  it('switches to checkpoint after 3 approved slices', () => {
+  it('tracks checkpoint cadence without auto-entering checkpoint mode', () => {
     let s = createInitialState('r1', 't1', now);
-    s.sliceCount = APPROVED_SLICES_PER_CHECKPOINT - 1;
+    s.sliceCount = CHECKPOINT_CADENCE_TARGET - 1;
     s = markWaitingForApproval(s, 'artifacts/briefs/b2.md', 'fp2', now);
     const out = applyApprovalDecision(s, 'Y', now);
-    expect(out.loopMode).toBe('checkpoint');
-    expect(out.phase).toBe('running_checkpoint');
+    expect(out.loopMode).toBe('slice');
+    expect(out.phase).toBe('waiting_for_codex');
+    expect(out.sliceCount).toBe(CHECKPOINT_CADENCE_TARGET);
   });
 
   it('resets slice count after approved checkpoint', () => {

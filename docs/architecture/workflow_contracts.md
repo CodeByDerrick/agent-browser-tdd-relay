@@ -1,10 +1,11 @@
-# Pipeline Contract Sheet
+# Workflow Contracts
 
-Relative path: `docs/architecture/pipeline_contract_sheet.md`
+Relative path: `docs/architecture/workflow_contracts.md`
+Project: Agent Bridge
 
-Purpose: This document defines the important human-facing contracts that sit around the relay flow, including briefs, structured review responses, checkpoint outputs, and milestone outputs. Use it when clarifying what kinds of artifacts the relay and rituals are expected to produce and how planning/history docs connect to those outputs.
+Purpose: This document defines the important human-facing contracts that sit around the relay flow, including briefs, structured review responses, checkpoint outputs, and milestone outputs. Use it when clarifying what kinds of artifacts the relay and rituals are expected to produce and how planning and history docs connect to those outputs.
 
-## Brief contract
+## Brief Contract
 
 Each active brief should be a minimal vertical slice and include only:
 
@@ -15,7 +16,7 @@ Each active brief should be a minimal vertical slice and include only:
 - touched seam(s)
 - evidence expected
 
-## Review response contract
+## Review Response Contract
 
 The relay expects structured ChatGPT output containing:
 
@@ -23,7 +24,7 @@ The relay expects structured ChatGPT output containing:
 - `NEXT_TASK_BRIEF`
 - optional `ARCHITECTURE_NOTES`
 
-## Relay workflow artifacts
+## Relay Workflow Artifacts
 
 The operating model recognizes these artifact classes:
 
@@ -32,17 +33,15 @@ The operating model recognizes these artifact classes:
 - checkpoint packet
 - milestone packet
 - reanchor package
-- relay version journal entry
+- version journal entry
 
-These are conceptual categories for repo operation. Only some of them are runtime-written today.
-
-## Checkpoint contract
+## Checkpoint Contract
 
 Checkpoint ritual inputs:
 
 - current repo state
-- last 3 approved slice outcomes
-- current architecture/process docs
+- recent approved slice outcomes when relevant
+- current architecture and process docs
 - outstanding reconciliation gaps
 
 Checkpoint ritual outputs:
@@ -51,21 +50,21 @@ Checkpoint ritual outputs:
 - repo reconciliation notes
 - checkpoint packet
 - commit recommendation
-- relay version journal entry
+- version journal entry
 - next brief recommendation
 
-## Milestone contract
+## Milestone Contract
 
 Milestone ritual inputs:
 
 - seam boundary or phase boundary summary
-- relevant slice/checkpoint history
-- current architecture/process docs
+- relevant slice and checkpoint history
+- current architecture and process docs
 
 Milestone ritual outputs:
 
 - architecture reconciliation
 - milestone packet
-- acceptance/risk notes
+- acceptance and risk notes
 - versioning recommendation
 - next-phase brief or seam brief

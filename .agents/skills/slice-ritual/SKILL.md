@@ -1,8 +1,9 @@
 # Slice Ritual
 
 Relative path: `.agents/skills/slice-ritual/SKILL.md`
+Project: Agent Bridge
 
-Purpose: This ritual wrapper is the normal entrypoint for implementing a minimal vertical slice in `agent-browser-tdd-relay`. Use it when an active brief is ready for execution. It coordinates the slice checklist, the slice execution prompt, and the `tdd-feature-slice` support skill while keeping scope bounded and token-efficient.
+Purpose: This ritual wrapper is the normal entrypoint for implementing a minimal vertical slice in Agent Bridge. Use it when an active brief is ready for execution. It coordinates the slice checklist, the slice execution prompt, and the `tdd-feature-slice` support skill while keeping scope bounded and token-efficient.
 
 ## Use when
 
@@ -24,4 +25,4 @@ Purpose: This ritual wrapper is the normal entrypoint for implementing a minimal
 1. Validate the brief against the slice ritual checklist.
 2. Call `tdd-feature-slice` to run the brief with TDD discipline and minimal context.
 3. Capture the slice result, report, and next brief candidate.
-4. If this is the third approved slice, hand off to `checkpoint-ritual` rather than continuing to another slice directly.
+4. If cadence is due or maintenance needs surfaced, recommend `checkpoint-ritual` before continuing deeper slice work.

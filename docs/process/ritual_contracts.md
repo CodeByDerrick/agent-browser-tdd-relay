@@ -1,8 +1,9 @@
 # Ritual Contracts
 
 Relative path: `docs/process/ritual_contracts.md`
+Project: Agent Bridge
 
-Purpose: This document defines the stable contracts for the ritual wrappers in `agent-browser-tdd-relay`. It clarifies the inputs, outputs, and shared expectations for slice, checkpoint, milestone, and reanchor work, and it explains how lower-level skills are composed beneath the wrappers. Use it when maintaining ritual behavior, onboarding contributors, or reconciling how process assets should coordinate.
+Purpose: This document defines the stable contracts for the ritual wrappers in Agent Bridge. It clarifies the inputs, outputs, and shared expectations for slice, checkpoint, milestone, and reanchor work, and it explains how lower-level skills are composed beneath the wrappers. Use it when maintaining ritual behavior, onboarding contributors, or reconciling how process assets should coordinate.
 
 ## Slice Ritual
 
@@ -24,19 +25,19 @@ Outputs:
 
 Inputs:
 
-- last 3 approved slices
+- current repo state
+- recent slices when relevant
 - affected docs
-- repo state
-- relay version journal context
+- version journal context
 
 Outputs:
 
 - refreshed docs
 - reconciliation notes
 - checkpoint packet
-- commit/version recommendation
+- commit or version recommendation
 - next brief recommendation
-- roadmap/backlog maintenance review
+- roadmap and backlog maintenance review
 - developer journal update when checkpoint narrative matters
 
 ## Milestone Ritual
@@ -49,11 +50,11 @@ Inputs:
 
 Outputs:
 
-- refreshed architecture/process docs
+- refreshed architecture and process docs
 - milestone packet
-- acceptance/risk note
+- acceptance and risk note
 - milestone version recommendation
-- roadmap/changelog/journal updates for stabilized work
+- roadmap, changelog, and journal updates for stabilized work
 
 ## Reanchor Ritual
 
@@ -68,9 +69,9 @@ Outputs:
 - concise handoff package
 - drift watchlist
 - resume instructions
-- trusted planning/history context
+- trusted planning and history context
 
-## Shared wrapper rule
+## Shared Wrapper Rule
 
 Every ritual wrapper should reference:
 
@@ -79,3 +80,5 @@ Every ritual wrapper should reference:
 - the prompt asset(s) it uses
 - the underlying skill(s) it composes
 - the expected artifact outputs
+
+Every maintained document should be referenced by at least one ritual wrapper or composed support skill.

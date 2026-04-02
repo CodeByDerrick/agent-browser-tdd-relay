@@ -1,8 +1,9 @@
 # Brief Title
 
 Relative path: `automation/briefs/templates/task-brief-template.md`
+Project: Agent Bridge
 
-Purpose: This template defines the standard shape for a minimal vertical-slice brief in `agent-browser-tdd-relay`. Use it when creating or refining a brief that is ready for slice ritual. It should contain only the information needed to run bounded TDD work with clear success criteria and evidence expectations.
+Purpose: This template defines the standard shape for a minimal vertical-slice brief in Agent Bridge. Use it when creating or refining a brief that is ready for slice ritual. It should contain only the information needed to run bounded TDD work with clear success criteria and evidence expectations.
 
 ## Slice
 
