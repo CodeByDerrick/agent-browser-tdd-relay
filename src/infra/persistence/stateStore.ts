@@ -1,7 +1,8 @@
 import { readFile, writeFile, rename } from 'node:fs/promises';
 import { RelayState } from '../../domain/types';
+import { RelayStateStore } from './types';
 
-export class FileStateStore {
+export class FileStateStore implements RelayStateStore {
   constructor(private readonly statePath: string) {}
 
   async load(): Promise<RelayState | null> {

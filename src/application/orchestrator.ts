@@ -10,17 +10,16 @@ import {
 import { RelayState } from '../domain/types';
 import { BrowserAdapter } from '../infra/browser/types';
 import { CodexRunner } from '../infra/codex/types';
-import { NdjsonEventLog } from '../infra/logging/eventLog';
 import { ArtifactStore } from '../infra/persistence/artifactStore';
-import { FileStateStore } from '../infra/persistence/stateStore';
+import { RelayAuditEvent, RelayAuditLog, RelayStateStore } from '../infra/persistence/types';
 import { parseStructuredResponse } from '../parsers/chatgptBlocks';
 import { sha256 } from '../utils/hash';
 
 interface OrchestratorDeps {
   codex: CodexRunner;
   browser: BrowserAdapter;
-  stateStore: FileStateStore;
-  eventLog: NdjsonEventLog;
+  stateStore: RelayStateStore;
+  auditLog: RelayAuditLog;
   artifacts: ArtifactStore;
   gateIo: ApprovalGateIO;
   now: () => string;
@@ -96,10 +95,49 @@ export class RelayOrchestrator {
 
   private async persist(state: RelayState, eventType: string, payload: Record<string, unknown> = {}): Promise<void> {
     await this.deps.stateStore.save(state);
-    await this.deps.eventLog.append({
-      type: eventType,
+    await this.deps.auditLog.append(this.toAuditEvent(eventType, payload));
+  }
+
+  private toAuditEvent(eventType: string, payload: Record<string, unknown>): RelayAuditEvent {
+    const mapped = {
+      state_waiting_for_codex: {
+        sourceActor: 'System',
+        targetActor: 'Codex',
+        dataCategory: 'state-transition'
+      },
+      codex_completed: {
+        sourceActor: 'Codex',
+        targetActor: 'ChatGPT',
+        dataCategory: 'slice-report'
+      },
+      chatgpt_duplicate_skipped: {
+        sourceActor: 'System',
+        targetActor: 'System',
+        dataCategory: 'dedupe'
+      },
+      chatgpt_response_ready: {
+        sourceActor: 'ChatGPT',
+        targetActor: 'User',
+        dataCategory: 'task-brief'
+      },
+      approval_decision: {
+        sourceActor: 'User',
+        targetActor: 'System',
+        dataCategory: 'approval'
+      }
+    } as const;
+
+    const fallback = {
+      sourceActor: 'System',
+      targetActor: 'System',
+      dataCategory: 'system'
+    } as const;
+    const entry = mapped[eventType as keyof typeof mapped] ?? fallback;
+
+    return {
+      ...entry,
       timestamp: this.deps.now(),
-      payload
-    });
+      payload: { eventType, ...payload }
+    };
   }
 }

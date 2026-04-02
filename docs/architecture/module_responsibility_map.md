@@ -28,11 +28,12 @@ Purpose: This document maps the major modules and seams in Agent Bridge, includi
 - `src/infra/chatgpt`
   - fake ChatGPT adapter
 - `src/infra/persistence`
-  - state and artifact storage
+  - SQLite-backed relay state and audit persistence
+  - artifact storage
 - `src/infra/logging`
-  - append-only event log
+  - file-based append-only audit log compatibility seam
 - `src/infra/checkpoint`
-  - checkpoint runner seam for future ritual execution integration
+  - checkpoint runner seam that archives completed active briefs during checkpoint completion
 
 ## CLI and Parsing
 
@@ -44,3 +45,4 @@ Purpose: This document maps the major modules and seams in Agent Bridge, includi
 ## Process Overlay
 
 The docs, prompts, checklists, and skills in this repo wrap the existing seams above. They do not replace the code architecture; they define how humans should operate it consistently.
+

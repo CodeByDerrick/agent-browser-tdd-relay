@@ -21,8 +21,8 @@ There is no runtime auto-approval or autonomous continuation.
 Implemented:
 
 - pure domain state model and transitions
-- durable local state file (`relay_state.json`)
-- append-only event log (`relay_events.ndjson`)
+- durable SQLite-backed relay state persistence
+- append-only SQLite-backed audit log
 - artifact writing helpers
 - CLI approval gate with injected I/O
 - fake Codex and fake ChatGPT/browser adapters
@@ -34,13 +34,13 @@ Intentionally stubbed or bounded:
 - `CodexRpcClient` is a stub
 - live browser adapter is a stub seam, not production automation
 - checkpoint execution is a human-invoked maintenance workflow
-- no GUI, cloud deployment, DB, autonomous runtime loop, or concurrency system yet
+- no GUI, cloud deployment, autonomous runtime loop, or concurrency system yet
 
 ## Runtime Layout
 
 - `src/domain`: types and pure transitions
-- `src/infra/persistence`: state and artifact storage
-- `src/infra/logging`: NDJSON event log
+- `src/infra/persistence`: SQLite-backed state and audit persistence plus artifact storage
+- `src/infra/logging`: file-based audit log compatibility seam
 - `src/cli`: approval gate
 - `src/infra/codex`: pluggable Codex seams and fake CLI implementation
 - `src/infra/browser`: browser seam and live stub

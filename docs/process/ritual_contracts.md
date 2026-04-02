@@ -35,6 +35,7 @@ Outputs:
 - refreshed docs
 - reconciliation notes
 - checkpoint packet
+- archived completed brief markdown files moved from `automation/briefs/active/` to `automation/briefs/archive/`
 - commit or version recommendation
 - next brief recommendation
 - roadmap and backlog maintenance review

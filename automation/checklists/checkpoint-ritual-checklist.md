@@ -11,6 +11,7 @@ Purpose: This checklist defines the recurring maintenance work that should happe
 - Reconcile repo drift and process drift
 - Review roadmap and backlog drift
 - Produce a checkpoint packet
+- Move completed brief markdown files from `automation/briefs/active/` to `automation/briefs/archive/`
 - Prepare commit recommendation
 - Record version journal entry
 - Update developer journal if checkpoint narrative matters

@@ -34,7 +34,7 @@ describe('restart recovery', () => {
         `[RECAP]\nresumed\n[/RECAP]\n[NEXT_TASK_BRIEF]\ncontinue\n[/NEXT_TASK_BRIEF]`
       ]),
       stateStore,
-      eventLog: new NdjsonEventLog(join(dir, 'relay_events.ndjson')),
+      auditLog: new NdjsonEventLog(join(dir, 'relay_events.ndjson')),
       artifacts: new ArtifactStore(),
       gateIo: new Io(),
       now: () => '2026-03-31T00:00:01.000Z',

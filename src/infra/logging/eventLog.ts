@@ -1,4 +1,5 @@
 import { appendFile } from 'node:fs/promises';
+import { RelayAuditEvent, RelayAuditLog } from '../persistence/types';
 
 export interface RelayEvent {
   type: string;
@@ -6,10 +7,10 @@ export interface RelayEvent {
   payload: Record<string, unknown>;
 }
 
-export class NdjsonEventLog {
+export class NdjsonEventLog implements RelayAuditLog {
   constructor(private readonly filePath: string) {}
 
-  async append(event: RelayEvent): Promise<void> {
+  async append(event: RelayAuditEvent | RelayEvent): Promise<void> {
     await appendFile(this.filePath, `${JSON.stringify(event)}\n`, 'utf8');
   }
 }
