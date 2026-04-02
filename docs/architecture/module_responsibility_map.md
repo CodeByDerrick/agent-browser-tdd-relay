@@ -10,6 +10,9 @@ Purpose: This document maps the major modules and seams in Agent Bridge, includi
 - `src/application/orchestrator.ts`
   - coordinates the relay flow
   - calls Codex, browser, parser, persistence, and approval seams
+- `src/index.ts`
+  - loads runtime configuration
+  - builds the runtime entrypoint and SIGINT handling
 
 ## Domain
 
@@ -24,7 +27,7 @@ Purpose: This document maps the major modules and seams in Agent Bridge, includi
 - `src/infra/codex`
   - Codex execution seam and fake implementation
 - `src/infra/browser`
-  - browser adapter seam and live stub
+  - browser adapter seam, file-transfer live adapter, and adapter factory
 - `src/infra/chatgpt`
   - fake ChatGPT adapter
 - `src/infra/persistence`
@@ -35,8 +38,10 @@ Purpose: This document maps the major modules and seams in Agent Bridge, includi
 - `src/infra/checkpoint`
   - checkpoint runner seam that archives completed active briefs during checkpoint completion
 
-## CLI and Parsing
+## Config and CLI
 
+- `src/config/runtimeConfig.ts`
+  - resolves adapter mode, database path, transfer directory, brief path, and project identity
 - `src/cli/approvalGate.ts`
   - human approval gate with explicit `Y/N/E/R/Q`
 - `src/parsers/chatgptBlocks.ts`
@@ -45,4 +50,3 @@ Purpose: This document maps the major modules and seams in Agent Bridge, includi
 ## Process Overlay
 
 The docs, prompts, checklists, and skills in this repo wrap the existing seams above. They do not replace the code architecture; they define how humans should operate it consistently.
-

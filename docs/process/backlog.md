@@ -18,7 +18,9 @@ Purpose: This document is the full future-facing inventory for Agent Bridge. It 
 - Expand checkpoint and milestone outputs into richer packets.
 - Improve recovery, reconciliation, and operational trust.
 - Strengthen live adapter readiness without over-claiming production maturity.
-- Add runtime configuration for the SQLite database path and checkpoint artifact locations.
+- Extend runtime config beyond the current env and `project_profile.json` layer when richer deployment needs appear.
+- Add configurable checkpoint artifact paths and any additional runtime location overrides needed beyond the current database and transfer directory settings.
+- Add a true runtime Codex execution seam that can replace the current fake CLI runner in non-test runs.
 - Extend audit coverage with any additional metadata needed for future traceability beyond the current actor, timestamp, payload, and category fields.
 
 ## Discussion Needed Before Roadmap

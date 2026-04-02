@@ -26,26 +26,32 @@ Implemented:
 - artifact writing helpers
 - CLI approval gate with injected I/O
 - fake Codex and fake ChatGPT/browser adapters
-- orchestrator flow using these fake adapters
+- file-transfer live browser adapter seam for prompt handoff and structured response polling
+- browser adapter factory selection for fake vs live mode
+- runtime configuration loading from environment and optional `project_profile.json`
+- `src/index.ts` application entrypoint and SIGINT-aware runtime bootstrapping
+- orchestrator flow using fake or live browser adapters
 - Vitest unit coverage for transition behavior
 
 Intentionally stubbed or bounded:
 
 - `CodexRpcClient` is a stub
-- live browser adapter is a stub seam, not production automation
+- the live browser adapter is file-transfer based, not production browser automation
 - checkpoint execution is a human-invoked maintenance workflow
 - no GUI, cloud deployment, autonomous runtime loop, or concurrency system yet
 
 ## Runtime Layout
 
 - `src/domain`: types and pure transitions
+- `src/config`: runtime configuration loading and project identity resolution
 - `src/infra/persistence`: SQLite-backed state and audit persistence plus artifact storage
 - `src/infra/logging`: file-based audit log compatibility seam
 - `src/cli`: approval gate
 - `src/infra/codex`: pluggable Codex seams and fake CLI implementation
-- `src/infra/browser`: browser seam and live stub
+- `src/infra/browser`: browser seam, file-transfer live adapter, and adapter factory
 - `src/infra/chatgpt`: fake ChatGPT/browser adapter
 - `src/application`: orchestrator
+- `src/index.ts`: runtime entrypoint
 - `tests/unit`
 
 ## Operating Model

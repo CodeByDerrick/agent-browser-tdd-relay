@@ -11,4 +11,5 @@ export interface SelectorCache {
 export interface BrowserAdapter {
   submitPrompt(prompt: string): Promise<void>;
   readLastAssistantMessage(): Promise<string>;
+  getMessageFingerprint?(message: string): string;
 }

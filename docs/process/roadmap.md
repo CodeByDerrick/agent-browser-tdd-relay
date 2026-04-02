@@ -17,6 +17,6 @@ Purpose: This document is the lean, near-term roadmap for Agent Bridge. It shoul
 ### MVP Foundation
 
 - Stabilize the relay operating model so docs, rituals, prompts, checklists, skills, and planning and history assets are coherent.
-- Use the first live checkpoint packet and version-journal entry as the baseline for future checkpoint maintenance.
-- Decide the next minimal runtime slice now that SQLite-backed state persistence, audit logging, and brief archival are in place.
+- Use the first two live checkpoint packets and version-journal entries as the maintenance baseline for future ritual work.
+- Decide the next minimal runtime slice now that SQLite persistence, the file-transfer live browser seam, and the CLI entrypoint are all in place.
 - Continue shaping the bounded relay scaffold into a trustworthy seam-first MVP.

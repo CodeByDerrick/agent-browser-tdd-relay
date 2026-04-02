@@ -56,7 +56,7 @@ export class RelayOrchestrator {
     if (state.phase === 'waiting_for_chatgpt') {
       await this.deps.browser.submitPrompt(`Review artifact at ${state.latestSliceReportPath}`);
       const rawResponse = await this.deps.browser.readLastAssistantMessage();
-      const fingerprint = sha256(rawResponse);
+      const fingerprint = this.deps.browser.getMessageFingerprint?.(rawResponse) ?? sha256(rawResponse);
 
       if (state.lastChatGptMessageFingerprint === fingerprint) {
         await this.persist(state, 'chatgpt_duplicate_skipped', { fingerprint });

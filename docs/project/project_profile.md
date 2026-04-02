@@ -26,12 +26,13 @@ Agent Bridge is a relay-oriented orchestration project. It connects local implem
 
 - core state transitions and orchestration scaffold exist
 - fake Codex and browser/ChatGPT seams exist for development and testing
+- SQLite-backed persistence and audit logging exist
+- runtime configuration and a CLI entrypoint now exist for fake and file-transfer live modes
 - process docs, rituals, and skills are maintained system assets
 - checkpoint execution remains a human-invoked maintenance workflow rather than an automatic runtime boundary
 
 ## Boundaries and Non-Goals
 
 - no autonomous continuation past explicit approval
-- no live browser automation claim yet
+- no production browser automation claim yet; the live seam is file-transfer based
 - no production deployment or distributed runtime yet
-- no durable database implementation yet, though audit-ready storage is planned

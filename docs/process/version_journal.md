@@ -14,6 +14,26 @@ Purpose: This document records checkpoint and milestone boundary history for Age
 ### Boundary
 
 - type: `checkpoint`
+- identifier: `ckpt-20260402-2`
+- related slices: `02_live_browser_adapter_seam`, `03_runtime_config_and_cli`
+- related seam or phase: `browser`, `runtime config`, `cli entrypoint`
+
+### Summary
+
+- what changed: implemented the file-transfer live browser adapter seam, added adapter factory selection, introduced runtime configuration and `src/index.ts` CLI boot wiring, and refreshed maintained docs to match the new runtime capabilities.
+- docs refreshed: `README.md`, `docs/project/project_profile.md`, `docs/architecture/module_responsibility_map.md`, `docs/process/roadmap.md`, `docs/process/backlog.md`, `docs/process/developer_journal.md`
+- open risks: production Codex execution and configurable checkpoint artifact locations are still future seams; live browser support remains file-transfer based rather than real browser automation.
+- next recommended brief: add a small runtime smoke or real Codex seam slice so `src/index.ts` can drive an end-to-end non-fake execution path.
+
+### Git Versioning
+
+- recommended tag: `checkpoint/ckpt-20260402-2`
+- recommended label: `checkpoint: live-browser-and-cli-baseline`
+- commit reference: pending
+
+### Boundary
+
+- type: `checkpoint`
 - identifier: `ckpt-20260402-1`
 - related slices: `01_sqlite_persistence_implementation`
 - related seam or phase: `persistence`, `checkpoint ritual`
