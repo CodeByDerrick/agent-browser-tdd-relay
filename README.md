@@ -1,3 +1,9 @@
+# README
+
+Relative path: `README.md`
+
+Purpose: This document introduces `agent-browser-tdd-relay` at a project level. It explains what the relay scaffold does, what is implemented versus intentionally stubbed, how the source tree is organized, and where the process system begins. Use it as the user-facing entrypoint before diving into architecture or workflow details.
+
 # double-loop-relay
 
 A bounded first-pass TypeScript scaffold for a relay orchestrator that coordinates:
@@ -42,27 +48,20 @@ Intentionally stubbed / bounded:
 - `src/application`: orchestrator
 - `tests/unit`, `tests/integration`
 
-## Run tests
+## Operating model
 
-```bash
-npm install
-npm test
-```
+This repo includes a lean ritual-driven process layer for TDD work:
 
-Or by scope:
+- briefs are minimal vertical slices
+- slice ritual is the default implementation entrypoint
+- checkpoint ritual runs after every 3 approved slices
+- milestone ritual runs at seam or phase boundaries
+- reanchor ritual compresses context for continuity
+- roadmap/backlog/history docs keep planning and execution aligned without drift
 
-```bash
-npm run test:unit
-npm run test:integration
-```
+Start with:
 
-## Extending live browser adapter later
-
-Use `BrowserAdapter` as the seam.
-
-1. Implement `submitPrompt` and `readLastAssistantMessage` using Playwright or Stagehand.
-2. Reuse bounded selector strategy helpers in `liveBrowserAdapter.ts`.
-3. Add selector-cache-backed recovery and confidence-based fallback.
-4. Keep this adapter behind tests with mocked DOM fixtures before any real browser session coupling.
-
-Stop at seam quality; do not claim production readiness until real interaction tests exist.
+- [AGENTS.md](/e:/build/agent-browser-tdd-relay/AGENTS.md)
+- [development_playbook.md](/e:/build/agent-browser-tdd-relay/docs/process/development_playbook.md)
+- [relay_workflow_operating_model.md](/e:/build/agent-browser-tdd-relay/docs/process/relay_workflow_operating_model.md)
+- [docs_system_wiring_guide.md](/e:/build/agent-browser-tdd-relay/docs/process/docs_system_wiring_guide.md)
