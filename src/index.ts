@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { createInterface } from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 import { pathToFileURL } from 'node:url';
@@ -5,6 +6,7 @@ import { RelayOrchestrator } from './application/orchestrator';
 import { ApprovalGateIO } from './cli/approvalGate';
 import { loadRuntimeConfig, LoadRuntimeConfigOptions, RuntimeConfig } from './config/runtimeConfig';
 import { createBrowserAdapter } from './infra/browser/createBrowserAdapter';
+import { FakeChatGptBrowserAdapter } from './infra/chatgpt/fakeChatGptAdapter';
 import { DefaultCodexRunner, FakeCodexCliClient } from './infra/codex/fakeCodex';
 import { ArtifactStore } from './infra/persistence/artifactStore';
 import { SqliteStore } from './infra/persistence/sqliteStore';
@@ -58,22 +60,39 @@ class ConsoleIo implements RuntimeIo {
   }
 }
 
+class ScriptedIo implements RuntimeIo {
+  constructor(private readonly inputValue: string) {}
+
+  write(message: string): void {
+    output.write(message);
+  }
+
+  async readLine(): Promise<string> {
+    return this.inputValue;
+  }
+}
+
 export const createRuntime = (options: CreateRuntimeOptions = {}): RuntimeApp => {
   const processRef = options.processRef ?? process;
+  const runtimeEnv = options.env ?? processRef.env;
+  const runtimeCwd = options.cwd ?? runtimeEnv.RUN_CWD ?? processRef.cwd();
   const config = loadRuntimeConfig({
-    cwd: options.cwd ?? processRef.cwd(),
-    env: options.env ?? processRef.env,
+    cwd: runtimeCwd,
+    env: runtimeEnv,
     argv: options.argv ?? processRef.argv.slice(2),
     now: options.now
   });
-  const io = options.io ?? new ConsoleIo();
+  const io = options.io ?? (config.approvalInput ? new ScriptedIo(config.approvalInput) : new ConsoleIo());
   const store = new SqliteStore(config.relayDbPath);
-  const browser = createBrowserAdapter({
-    mode: config.adapterMode,
-    transferDir: config.transferDir,
-    pollIntervalMs: config.pollIntervalMs,
-    timeoutMs: config.timeoutMs
-  });
+  const browser =
+    config.adapterMode === 'fake' && config.fakeBrowserResponsePath
+      ? new FakeChatGptBrowserAdapter([readFixture(config.fakeBrowserResponsePath)])
+      : createBrowserAdapter({
+          mode: config.adapterMode,
+          transferDir: config.transferDir,
+          pollIntervalMs: config.pollIntervalMs,
+          timeoutMs: config.timeoutMs
+        });
   const orchestrator = new RelayOrchestrator({
     codex: new DefaultCodexRunner(new FakeCodexCliClient(config.runId)),
     browser,
@@ -88,6 +107,10 @@ export const createRuntime = (options: CreateRuntimeOptions = {}): RuntimeApp =>
   });
 
   const run = async (): Promise<void> => {
+    if (process.cwd() !== runtimeCwd) {
+      process.chdir(runtimeCwd);
+    }
+
     io.write(
       `Starting ${config.projectName} in ${config.adapterMode} mode using ${config.relayDbPath} and brief ${config.briefPath}\n`
     );
@@ -108,3 +131,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
 }
 
 export { loadRuntimeConfig } from './config/runtimeConfig';
+
+function readFixture(path: string): string {
+  return readFileSync(path, 'utf8');
+}

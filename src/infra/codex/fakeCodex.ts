@@ -1,3 +1,5 @@
+import { mkdir, writeFile } from 'node:fs/promises';
+import { dirname } from 'node:path';
 import { sha256 } from '../../utils/hash';
 import { CodexCliClient, CodexResult, CodexRunner, CodexRpcClient } from './types';
 
@@ -6,8 +8,12 @@ export class FakeCodexCliClient implements CodexCliClient {
 
   async runBrief(briefPath: string): Promise<CodexResult> {
     const summary = `Fake implementation completed for ${briefPath}`;
+    const artifactPath = `artifacts/slice_reports/${this.runId}-slice_report.md`;
+    await mkdir(dirname(artifactPath), { recursive: true });
+    await writeFile(artifactPath, `${summary}\n`, 'utf8');
+
     return {
-      artifactPath: `artifacts/slice_reports/${this.runId}-${Date.now()}.md`,
+      artifactPath,
       summary,
       artifactHash: sha256(summary),
       pid: 1111

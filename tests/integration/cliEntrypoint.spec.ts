@@ -30,9 +30,11 @@ describe('cli entrypoint', () => {
 
   it('defaults to fake mode when ADAPTER_MODE is unset', async () => {
     const dir = await mkdtemp(join(tmpdir(), 'relay-cli-fake-default-'));
+    await writeFile(join(dir, 'brief.md'), '# brief\n', 'utf8');
     const io = new FakeIo();
     const runtime = createRuntime({
       cwd: dir,
+      argv: ['brief.md'],
       env: {
         RELAY_DB_PATH: join(dir, 'relay.sqlite')
       },
@@ -47,10 +49,12 @@ describe('cli entrypoint', () => {
   it('fails when live mode is requested without TRANSFER_DIR, but loads project identity from project_profile.json when present', async () => {
     const dir = await mkdtemp(join(tmpdir(), 'relay-cli-live-config-'));
     await writeFile(join(dir, 'project_profile.json'), JSON.stringify({ projectName: 'Agent Bridge Runtime' }), 'utf8');
+    await writeFile(join(dir, 'brief.md'), '# brief\n', 'utf8');
 
     expect(() =>
       loadRuntimeConfig({
         cwd: dir,
+        argv: ['brief.md'],
         env: {
           RELAY_DB_PATH: join(dir, 'relay.sqlite'),
           ADAPTER_MODE: 'live'
@@ -61,6 +65,7 @@ describe('cli entrypoint', () => {
     const io = new FakeIo();
     const runtime = createRuntime({
       cwd: dir,
+      argv: ['brief.md'],
       env: {
         RELAY_DB_PATH: join(dir, 'relay.sqlite'),
         ADAPTER_MODE: 'live',

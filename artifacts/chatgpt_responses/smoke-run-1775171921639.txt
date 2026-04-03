@@ -1,0 +1,11 @@
+[RECAP]
+Implemented fake slice output and reviewed architecture.
+[/RECAP]
+
+[NEXT_TASK_BRIEF]
+Create the next bounded slice with tests and persist artifacts.
+[/NEXT_TASK_BRIEF]
+
+[ARCHITECTURE_NOTES]
+Keep the human gate mandatory.
+[/ARCHITECTURE_NOTES]

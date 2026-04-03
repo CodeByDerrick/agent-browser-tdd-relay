@@ -19,6 +19,8 @@ export interface RuntimeConfig {
   threadId: string;
   pollIntervalMs: number;
   timeoutMs: number;
+  fakeBrowserResponsePath?: string;
+  approvalInput?: string;
 }
 
 export interface LoadRuntimeConfigOptions {
@@ -31,7 +33,7 @@ export interface LoadRuntimeConfigOptions {
 const DEFAULT_PROJECT_NAME = 'Agent Bridge';
 
 export const loadRuntimeConfig = (options: LoadRuntimeConfigOptions = {}): RuntimeConfig => {
-  const cwd = options.cwd ?? process.cwd();
+  const cwd = options.cwd ?? (options.env?.RUN_CWD ? resolve(options.env.RUN_CWD) : process.cwd());
   const env = options.env ?? process.env;
   const now = options.now ?? new Date();
   const configFile = readOptionalJson<ProjectProfileFile>(
@@ -63,7 +65,9 @@ export const loadRuntimeConfig = (options: LoadRuntimeConfigOptions = {}): Runti
     runId,
     threadId,
     pollIntervalMs: Number(env.POLL_INTERVAL_MS ?? '50'),
-    timeoutMs: Number(env.BROWSER_TIMEOUT_MS ?? '5000')
+    timeoutMs: Number(env.BROWSER_TIMEOUT_MS ?? '5000'),
+    fakeBrowserResponsePath: env.FAKE_BROWSER_RESPONSE_PATH ? resolve(cwd, env.FAKE_BROWSER_RESPONSE_PATH) : undefined,
+    approvalInput: env.APPROVAL_INPUT
   };
 };
 
@@ -82,19 +86,29 @@ const normalizeMode = (value: string | undefined): 'fake' | 'live' => {
 const resolveBriefPath = (cwd: string, argv: string[]): string => {
   const firstArg = argv.find((value) => value && !value.startsWith('--'));
   if (firstArg) {
-    return resolve(cwd, firstArg);
+    const path = resolve(cwd, firstArg);
+    ensureBriefExists(path);
+    return path;
   }
 
   const activeDir = join(cwd, 'automation/briefs/active');
   if (!existsSync(activeDir)) {
-    return resolve(cwd, 'artifacts/briefs/current.md');
+    const path = resolve(cwd, 'artifacts/briefs/current.md');
+    ensureBriefExists(path);
+    return path;
   }
 
   const briefName = readdirSync(activeDir)
     .filter((entry) => entry.endsWith('.md') && entry !== 'README.md')
     .sort()[0];
 
-  return resolve(cwd, briefName ? join('automation/briefs/active', briefName) : 'artifacts/briefs/current.md');
+  if (!briefName) {
+    throw new Error('No starting brief found');
+  }
+
+  const path = resolve(cwd, join('automation/briefs/active', briefName));
+  ensureBriefExists(path);
+  return path;
 };
 
 const readOptionalJson = <T>(path: string): T | null => {
@@ -106,3 +120,10 @@ const readOptionalJson = <T>(path: string): T | null => {
 };
 
 const slugify = (value: string): string => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+const ensureBriefExists = (path: string): void => {
+  if (!existsSync(path)) {
+    throw new Error('No starting brief found');
+  }
+};
+
