@@ -42,3 +42,14 @@ Purpose: This document is the top-level operating guide for agents and contribut
 - Keep active context small
 - Archive old briefs and packets instead of keeping everything in the active lane
 - Prefer derivative relay-specific docs over porting artifact-heavy source-project docs verbatim
+
+## Cadence Ecosystem Contribution Check
+
+After substantial work, review `CADENCE_ECOSYSTEM_CONTRIBUTIONS.md`.
+
+- Record a repository-local entry only when the work produced real transferable evidence or meaningful Cadence product pressure.
+- Preserve the local benefit, evidence posture, limits, and a minimized candidate.
+- A local candidate does not authorize another repository write, Cadence roadmap or feature shaping, doctrine, backlog work, or implementation.
+- Ask Derrick before routing a candidate outside this repository.
+- Include one disposition in the completion report: new or updated local candidate, bounded promotion question, routed outcome, or no Cadence contribution identified.
+- Do not create contribution entries merely to satisfy process.
